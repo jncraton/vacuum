@@ -4,6 +4,18 @@ from dataclasses import dataclass
 
 houses = [
 """
+***
+*.*
+*.*
+*.*
+*.*
+*.*
+*.*
+*.*
+***
+""",
+
+"""
 ****
 *..*
 *..*
