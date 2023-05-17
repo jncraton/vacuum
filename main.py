@@ -78,6 +78,12 @@ class Direction:
     name: str
     
     def turn_cw(self, angle):
+        """
+        >>> d = Direction('n')
+        >>> d.turn_cw(-90)
+        >>> d
+        Direction(name='w')
+        """
         directions = 'nesw'
 
         direction = directions.index(self.name)
@@ -85,7 +91,21 @@ class Direction:
 
         self.name = directions[direction]
 
-    def move(self, pos, distance=1):
+    def move(self, pos, dist=1):
+        """
+        >>> d = Direction('w')
+        >>> d.move((3,3), 4)
+        (-1, 3)
+        
+        >>> d = Direction('s')
+        >>> d.move((5,5), -2)
+        (5, 3)
+
+        >>> d = Direction('n')
+        >>> d.move((5,5), 2)
+        (5, 3)
+        """
+
         directions = {
             'n': ( 0,-1),
             'e': ( 1, 0),
@@ -94,8 +114,8 @@ class Direction:
         }
 
         return (
-            pos[0] + distance * directions[self.name][0],
-            pos[1] + distance * directions[self.name][1],
+            pos[0] + dist * directions[self.name][0],
+            pos[1] + dist * directions[self.name][1],
         )
 
     def __str__(self):
