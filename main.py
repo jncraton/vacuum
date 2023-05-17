@@ -1,3 +1,4 @@
+import random
 import time
 from dataclasses import dataclass
 
@@ -51,14 +52,6 @@ class Board:
 
     def __repr__(self):
         return str(self.rows)
-
-def agent(actions):
-    """Handle one agent turn
-
-    Returns exactly one action from list of valid actions
-    """
-    
-    return actions[0]
 
 @dataclass
 class Direction:
@@ -122,6 +115,20 @@ class Direction:
         return self.name
 
 
+def agent(facing, actions):
+    """Handle one agent turn
+
+    Returns exactly one action from list of valid actions
+    """
+
+    if actions[0] == 'forward' and random.random() > .9:
+        return 'forward'
+
+    if random.random() > .5:
+        return actions[0]
+    else:
+        return actions[1]
+
 if __name__ == '__main__':
     house = Board(houses[0])
 
@@ -130,18 +137,22 @@ if __name__ == '__main__':
 
     house.set(pos, facing.name)
     
-    for i in range(100):
+    for i in range(1000):
         print(f'Turn {i}')
         for row in house.rows:
             print(''.join(row))
-        time.sleep(.2)
+
+        if not house.contains('.'):
+            break
+
+        time.sleep(.01)
 
         actions = ['left', 'right']
 
         if house.get(facing.move(pos)) != '*':
             actions.insert(0, 'forward')
 
-        action = agent(actions)
+        action = agent(facing.name, actions)
 
         assert(action in actions)
 
@@ -150,11 +161,8 @@ if __name__ == '__main__':
         if action == 'left':
             facing.turn_cw(90)
         elif action == 'right':
-            facing.turn_ccw(-90)
+            facing.turn_cw(-90)
         elif action == 'forward':
             pos = facing.move(pos)
 
         house.set(pos, facing.name)
-
-        if not house.contains('.'):
-            break
