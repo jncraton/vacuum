@@ -180,7 +180,7 @@ def agent(facing, actions):
     Returns exactly one action from list of valid actions
     """
 
-    if actions[0] == 'forward' and random.random() > .9:
+    if actions[0] == 'forward' and random.random() > .4:
         return 'forward'
 
     if random.random() > .5:
