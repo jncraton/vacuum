@@ -188,7 +188,7 @@ def agent(facing, actions):
     else:
         return actions[1]
 
-def clean_house(house, agent, show=True, limit=100000):
+def clean_house(house, agent, delay=.01, limit=100000):
     house = Board(house)
 
     pos = (1, 1)
@@ -197,12 +197,12 @@ def clean_house(house, agent, show=True, limit=100000):
     house.set(pos, facing.name)
     
     for i in range(limit):
-        if show:
+        if delay > 0:
             print(f'Turn {i}')
             for row in house.rows:
                 print(''.join(row))
 
-            time.sleep(.01)
+            time.sleep(delay)
 
         if not house.contains('.'):
             return i
@@ -233,7 +233,7 @@ if __name__ == '__main__':
     for i, house in enumerate(houses):
         print(f"\n# House {i}")
 
-        results = [clean_house(house, agent, show=False) for i in range(100)]
+        results = [clean_house(house, agent, delay=0) for i in range(100)]
         average = sum(results) / len(results)
 
         print(f"Cleaned house in {average} seconds on average.")
