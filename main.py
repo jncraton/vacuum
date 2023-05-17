@@ -22,6 +22,9 @@ class Board:
 
         self.rows = [list(r) for r in definition.strip().split('\n')]
 
+    def get(self, pos, value):
+        return self.rows[pos[1]][pos[0]]
+
     def set(self, pos, value):
         self.rows[pos[1]][pos[0]] = value
 
