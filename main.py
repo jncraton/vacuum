@@ -254,8 +254,6 @@ def clean_house(house, agent, delay=.5, limit=100000, allow_useless=True):
     return float('inf')
 
 if __name__ == '__main__':
-    clean_house(houses[2], agent, delay=.5)
-
     for i, house in enumerate(houses):
         print(f"\n# House {i}")
 
