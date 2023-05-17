@@ -178,7 +178,7 @@ def flip_coin():
     return 'heads' if random.random() > .5 else 'tails'
 
 
-def agent(facing, obstructed, actions):
+def agent(facing, obstructed, last_action, actions):
     """Handle one agent turn
 
     :param facing: Current direction reported by compass. Will always be one
