@@ -174,21 +174,30 @@ class Direction:
         return self.name
 
 
-def agent(facing, actions):
+def flip_coin():
+    return 'heads' if random.random() > .5 else 'tails'
+
+
+def agent(facing, obstructed, actions):
     """Handle one agent turn
+
+    :param facing: Current direction reported by compass. Will always be one
+    of 'n', 's', 'e', or 'w'
+    :param obstructed: Will be true if current forward path is obstructed
+    :param actions: List of valid actions
 
     Returns exactly one action from list of valid actions
     """
 
-    if actions[0] == 'forward' and random.random() > .4:
+    if not obstructed and flip_coin() == 'heads':
         return 'forward'
 
-    if random.random() > .5:
+    if flip_coin() == 'heads':
         return actions[0]
     else:
         return actions[1]
 
-def clean_house(house, agent, delay=.5, limit=100000):
+def clean_house(house, agent, delay=.5, limit=100000, allow_useless=True):
     house = Board(house)
 
     pos = (1, 1)
@@ -212,9 +221,13 @@ def clean_house(house, agent, delay=.5, limit=100000):
         if house.get(facing.move(pos)) != '*':
             actions.insert(0, 'forward')
 
-        action = agent(facing.name, actions)
+        action = agent(facing.name, 'forward' not in actions, actions)
 
-        assert(action in actions)
+        if not allow_useless:
+            assert(action in actions)
+        else:
+            if not action in actions:
+                continue
 
         house.set(pos, ' ')
 
