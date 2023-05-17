@@ -135,7 +135,7 @@ def agent(facing, actions):
     else:
         return actions[1]
 
-def clean_house(house, agent, show=True, limit=1000):
+def clean_house(house, agent, show=True, limit=10000):
     house = Board(house)
 
     pos = (1, 1)
