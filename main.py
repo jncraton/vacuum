@@ -129,8 +129,8 @@ def agent(facing, actions):
     else:
         return actions[1]
 
-if __name__ == '__main__':
-    house = Board(houses[0])
+def clean_house(house, agent, show=True):
+    house = Board(house)
 
     pos = (1, 1)
     facing = Direction('s')
@@ -138,14 +138,15 @@ if __name__ == '__main__':
     house.set(pos, facing.name)
     
     for i in range(1000):
-        print(f'Turn {i}')
-        for row in house.rows:
-            print(''.join(row))
+        if show:
+            print(f'Turn {i}')
+            for row in house.rows:
+                print(''.join(row))
+
+            time.sleep(.01)
 
         if not house.contains('.'):
-            break
-
-        time.sleep(.01)
+            return i
 
         actions = ['left', 'right']
 
@@ -166,3 +167,8 @@ if __name__ == '__main__':
             pos = facing.move(pos)
 
         house.set(pos, facing.name)
+
+if __name__ == '__main__':
+    seconds = clean_house(houses[0], agent)
+
+    print(f"Cleaned the house in {seconds} seconds")
