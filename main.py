@@ -22,7 +22,7 @@ class Board:
 
         self.rows = [list(r) for r in definition.strip().split('\n')]
 
-    def get(self, pos, value):
+    def get(self, pos):
         return self.rows[pos[1]][pos[0]]
 
     def set(self, pos, value):
@@ -119,13 +119,14 @@ class Direction:
         )
 
     def __str__(self):
-        return self.name    
+        return self.name
+
 
 if __name__ == '__main__':
     house = Board(houses[0])
 
     pos = (1, 1)
-    facing = Direction('n')
+    facing = Direction('s')
 
     house.set(pos, facing.name)
     
@@ -135,9 +136,14 @@ if __name__ == '__main__':
             print(''.join(row))
         time.sleep(.1)
 
-        actions = []
+        actions = ['left', 'right']
 
-        actions = ['forward', 'left', 'right', 'backward']
+        if house.get(facing.move(pos)) != '*':
+            actions.insert(0, 'forward')
+
+        action = agent(actions)
+
+        assert(action in actions)
 
         if not house.contains('.'):
             break
