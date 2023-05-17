@@ -231,9 +231,9 @@ def clean_house(house, agent, delay=.5, limit=100000, allow_useless=True):
 
         house.set(pos, ' ')
 
-        if action == 'left':
+        if action == 'right':
             facing.turn_cw(90)
-        elif action == 'right':
+        elif action == 'left':
             facing.turn_cw(-90)
         elif action == 'forward':
             pos = facing.move(pos)
