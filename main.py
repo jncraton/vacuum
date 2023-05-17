@@ -1,4 +1,5 @@
 import time
+from dataclasses import dataclass
 
 houses = [
 """
@@ -22,7 +23,7 @@ def parse_house(house: str):
 
     return rows
 
-def ordered_agent(actions):
+def agent(actions):
     """Handle one agent turn
 
     Returns exactly one action from list of valid actions
@@ -47,12 +48,64 @@ def is_dirty(house: list):
 
     return False
 
+@dataclass
+class Direction:
+    """
+    >>> Direction('n')
+    Direction(name='n')
+
+    >>> d = Direction('n')
+    >>> d.turn_cw(90)
+    >>> d
+    Direction(name='e')
+
+    >>> d = Direction('n')
+    >>> d.move((0,0))
+    (0, -1)
+    """
+    name: str
+    
+    def turn_cw(self, angle):
+        directions = 'nesw'
+
+        direction = directions.index(self.name)
+        direction = (direction + int(angle/90)) % 4
+
+        self.name = directions[direction]
+
+    def move(self, pos, distance=1):
+        directions = {
+            'n': ( 0,-1),
+            'e': ( 1, 0),
+            's': ( 0, 1),
+            'w': (-1, 0),
+        }
+
+        return (
+            pos[0] + distance * directions[self.name][0],
+            pos[1] + distance * directions[self.name][1],
+        )
+
+    def __str__(self):
+        return self.name    
+
 if __name__ == '__main__':
     house = parse_house(houses[0])
 
+    pos = (1, 1)
+    facing = Direction('n')
+    
+    house[pos[1]][pos[0]] = 'O'
+
     for i in range(10):
-        if is_dirty(house):
-            print(f'Turn {i}')
-            for row in house:
-                print(''.join(row))
-            time.sleep(.1)
+        print(f'Turn {i}')
+        for row in house:
+            print(''.join(row))
+        time.sleep(.1)
+
+        actions = ['forward', 'left', 'right', 'backward']
+
+        
+
+        if not is_dirty(house):
+            break
