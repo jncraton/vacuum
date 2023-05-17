@@ -12,16 +12,42 @@ houses = [
 """,
 ]
 
-def parse_house(house: str):
-    """Converts string reprentation to 2d list
-    
-    >>> parse_house("***\\n*.*\\n*.*\\n***")
-    [['*', '*', '*'], ['*', '.', '*'], ['*', '.', '*'], ['*', '*', '*']]
-    """
+class House:
+    def __init__(self, definition):
+        """Converts string reprentation to 2d list
+        
+        >>> House("***\\n*.*\\n*.*\\n***")
+        [['*', '*', '*'], ['*', '.', '*'], ['*', '.', '*'], ['*', '*', '*']]
+        """
 
-    rows = [list(r) for r in house.strip().split('\n')]
+        self.rows = [list(r) for r in definition.strip().split('\n')]
 
-    return rows
+    def set(self, pos, value):
+        self.rows[pos[1]][pos[0]] = value
+
+    def is_clean(self):
+        """Returns True if their is dirt in the house
+
+        >>> h = House("***\\n*.*\\n*.*\\n***")
+        >>> h.is_clean()
+        False
+     
+        >>> h = House("***\\n* *\\n* *\\n***")
+        >>> h.is_clean()
+        True
+        """
+
+        for row in self.rows:
+            for cell in row:
+                if cell == '.':
+                    return False
+
+        return True
+
+
+
+    def __repr__(self):
+        return str(self.rows)
 
 def agent(actions):
     """Handle one agent turn
@@ -30,23 +56,6 @@ def agent(actions):
     """
     
     return actions[0]
-
-def is_dirty(house: list):
-    """Returns True if their is dirt in the house
-
-    >>> is_dirty([['*', '*', '*'], ['*', '.', '*'], ['*', '*', '*']])
-    True
- 
-    >>> is_dirty([['*', '*', '*'], ['*', ' ', '*'], ['*', '*', '*']])
-    False
-    """
-
-    for row in house:
-        for cell in row:
-            if cell == '.':
-                return True
-
-    return False
 
 @dataclass
 class Direction:
@@ -90,22 +99,20 @@ class Direction:
         return self.name    
 
 if __name__ == '__main__':
-    house = parse_house(houses[0])
+    house = House(houses[0])
 
     pos = (1, 1)
     facing = Direction('n')
-    
-    house[pos[1]][pos[0]] = 'O'
 
+    house.set(pos, 'O')
+    
     for i in range(10):
         print(f'Turn {i}')
-        for row in house:
+        for row in house.rows:
             print(''.join(row))
         time.sleep(.1)
 
         actions = ['forward', 'left', 'right', 'backward']
 
-        
-
-        if not is_dirty(house):
+        if house.is_clean():
             break
