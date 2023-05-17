@@ -260,4 +260,4 @@ if __name__ == '__main__':
         results = [clean_house(house, agent, delay=0) for i in range(100)]
         average = sum(results) / len(results)
 
-        print(f"Cleaned house in {average} seconds on average.")
+        print(f"Cleaned house in {average:.1f} seconds on average.")
