@@ -107,7 +107,7 @@ if __name__ == '__main__':
     pos = (1, 1)
     facing = Direction('n')
 
-    house.set(pos, 'O')
+    house.set(pos, facing.name)
     
     for i in range(10):
         print(f'Turn {i}')
@@ -116,7 +116,6 @@ if __name__ == '__main__':
         time.sleep(.1)
 
         actions = []
-        
 
         actions = ['forward', 'left', 'right', 'backward']
 
