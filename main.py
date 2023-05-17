@@ -200,6 +200,7 @@ def agent(facing, obstructed, actions):
 def clean_house(house, agent, delay=.5, limit=100000, allow_useless=True):
     house = Board(house)
 
+    action = None
     pos = (1, 1)
     facing = Direction('s')
 
@@ -208,6 +209,7 @@ def clean_house(house, agent, delay=.5, limit=100000, allow_useless=True):
     for i in range(limit):
         if delay > 0:
             print(f'Turn {i}')
+            print(f'Completed action: {action}')
             for row in house.rows:
                 print(''.join(row))
 
@@ -221,7 +223,7 @@ def clean_house(house, agent, delay=.5, limit=100000, allow_useless=True):
         if house.get(facing.move(pos)) != '*':
             actions.insert(0, 'forward')
 
-        action = agent(facing.name, 'forward' not in actions, actions)
+        action = agent(facing.name, 'forward' not in actions, action, actions)
 
         if not allow_useless:
             assert(action in actions)
