@@ -174,7 +174,7 @@ def clean_house(house, agent, show=True, limit=10000):
 
         house.set(pos, facing.name)
 
-    return limit
+    return float('inf')
 
 if __name__ == '__main__':
     for i, house in enumerate(houses):
