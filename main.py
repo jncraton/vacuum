@@ -130,11 +130,11 @@ if __name__ == '__main__':
 
     house.set(pos, facing.name)
     
-    for i in range(10):
+    for i in range(100):
         print(f'Turn {i}')
         for row in house.rows:
             print(''.join(row))
-        time.sleep(.1)
+        time.sleep(.2)
 
         actions = ['left', 'right']
 
@@ -144,6 +144,17 @@ if __name__ == '__main__':
         action = agent(actions)
 
         assert(action in actions)
+
+        house.set(pos, ' ')
+
+        if action == 'left':
+            facing.turn_cw(90)
+        elif action == 'right':
+            facing.turn_ccw(-90)
+        elif action == 'forward':
+            pos = facing.move(pos)
+
+        house.set(pos, facing.name)
 
         if not house.contains('.'):
             break
