@@ -1,3 +1,5 @@
+import time
+
 houses = [
 """
 *********
@@ -48,8 +50,9 @@ def is_dirty(house: list):
 if __name__ == '__main__':
     house = parse_house(houses[0])
 
-    for i in range(100):
+    for i in range(10):
         if is_dirty(house):
             print(f'Turn {i}')
             for row in house:
                 print(''.join(row))
+            time.sleep(.1)
