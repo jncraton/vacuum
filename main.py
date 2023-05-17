@@ -25,24 +25,24 @@ class House:
     def set(self, pos, value):
         self.rows[pos[1]][pos[0]] = value
 
-    def is_clean(self):
+    def contains(self, char):
         """Returns True if their is dirt in the house
 
         >>> h = House("***\\n*.*\\n*.*\\n***")
-        >>> h.is_clean()
-        False
+        >>> h.contains('.')
+        True
      
         >>> h = House("***\\n* *\\n* *\\n***")
-        >>> h.is_clean()
-        True
+        >>> h.contains('.')
+        False
         """
 
         for row in self.rows:
             for cell in row:
-                if cell == '.':
-                    return False
+                if cell == char:
+                    return True
 
-        return True
+        return False
 
 
 
@@ -112,7 +112,10 @@ if __name__ == '__main__':
             print(''.join(row))
         time.sleep(.1)
 
+        actions = []
+        
+
         actions = ['forward', 'left', 'right', 'backward']
 
-        if house.is_clean():
+        if not house.contains('.'):
             break
