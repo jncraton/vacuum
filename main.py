@@ -4,6 +4,12 @@ from dataclasses import dataclass
 
 houses = [
 """
+****
+*..*
+*..*
+****
+""",
+"""
 *********
 *.......*
 *.......*
@@ -174,7 +180,7 @@ if __name__ == '__main__':
     for i, house in enumerate(houses):
         print(f"\n# House {i}")
 
-        results = [clean_house(houses[0], agent, show=False) for i in range(100)]
+        results = [clean_house(house, agent, show=False) for i in range(100)]
         average = sum(results) / len(results)
 
         print(f"Cleaned house in {average} seconds on average.")
