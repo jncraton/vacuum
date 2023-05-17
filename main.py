@@ -12,11 +12,11 @@ houses = [
 """,
 ]
 
-class House:
+class Board:
     def __init__(self, definition):
         """Converts string reprentation to 2d list
         
-        >>> House("***\\n*.*\\n*.*\\n***")
+        >>> Board("***\\n*.*\\n*.*\\n***")
         [['*', '*', '*'], ['*', '.', '*'], ['*', '.', '*'], ['*', '*', '*']]
         """
 
@@ -28,11 +28,11 @@ class House:
     def contains(self, char):
         """Returns True if their is dirt in the house
 
-        >>> h = House("***\\n*.*\\n*.*\\n***")
+        >>> h = Board("***\\n*.*\\n*.*\\n***")
         >>> h.contains('.')
         True
      
-        >>> h = House("***\\n* *\\n* *\\n***")
+        >>> h = Board("***\\n* *\\n* *\\n***")
         >>> h.contains('.')
         False
         """
@@ -99,7 +99,7 @@ class Direction:
         return self.name    
 
 if __name__ == '__main__':
-    house = House(houses[0])
+    house = Board(houses[0])
 
     pos = (1, 1)
     facing = Direction('n')
