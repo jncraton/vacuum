@@ -184,6 +184,7 @@ def agent(facing, obstructed, last_action, actions):
     :param facing: Current direction reported by compass. Will always be one
     of 'n', 's', 'e', or 'w'
     :param obstructed: Will be true if current forward path is obstructed
+    :param last_action: Value of action selected on previous turn
     :param actions: List of valid actions
 
     Returns exactly one action from list of valid actions
