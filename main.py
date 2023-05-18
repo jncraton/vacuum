@@ -255,7 +255,12 @@ def clean_house(house, agent, delay=.5, limit=100000, allow_useless=True):
 
 if __name__ == '__main__':
     for i, house in enumerate(houses):
-        results = [clean_house(house, agent, delay=0) for i in range(100)]
-        average = sum(results) / len(results)
+        if clean_house(house, agent, delay=0) < 100000:
+            results = [clean_house(house, agent, delay=0) for i in range(100)]
+            average = sum(results) / len(results)
 
-        print(f"Cleaned house {i} in {average:.1f} seconds on average (max {max(results)}).")
+            print(f"Cleaned house {i} in {average:.1f} seconds on average (max {max(results)}).")
+        else:
+            print(f"Took too long to clean house {i}")
+            clean_house(house, agent, delay=0.5)
+            break
