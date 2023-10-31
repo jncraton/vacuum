@@ -2,8 +2,30 @@ import random
 import time
 from dataclasses import dataclass
 
+
+def agent(facing, obstructed, last_action, actions):
+    """Handle one agent turn
+
+    :param facing: Current direction reported by compass. Will always be one
+    of 'n', 's', 'e', or 'w'
+    :param obstructed: Will be true if current forward path is obstructed
+    :param last_action: Value of action selected on previous turn
+    :param actions: List of valid actions
+
+    Returns exactly one action from list of valid actions
+    """
+
+    if not obstructed and random.random() > 0.5:
+        return "forward"
+
+    if random.random() > 0.5:
+        return actions[0]
+    else:
+        return actions[1]
+
+
 houses = [
-"""
+    """
 ***
 *.*
 *.*
@@ -14,23 +36,20 @@ houses = [
 *.*
 ***
 """,
-
-"""
+    """
 ****
 *..*
 *..*
 ****
 """,
-
-"""
+    """
 *****
 *...*
 *...*
 *...*
 *****
 """,
-
-"""
+    """
 *********
 *.......*
 *.......*
@@ -38,8 +57,7 @@ houses = [
 *.......*
 *********
 """,
-
-"""
+    """
 *********
 *...*...*
 *...*...*
@@ -47,8 +65,7 @@ houses = [
 *.......*
 *********
 """,
-
-"""
+    """
 *********
 *...*...*
 *...*...*
@@ -60,8 +77,7 @@ houses = [
 *.......*
 *********
 """,
-
-"""
+    """
 *******************
 *.*..*....*.......*
 *....*....*.......*
@@ -80,15 +96,16 @@ houses = [
 """,
 ]
 
+
 class Board:
     def __init__(self, definition):
         """Converts string reprentation to 2d list
-        
+
         >>> Board("***\\n*.*\\n*.*\\n***")
         [['*', '*', '*'], ['*', '.', '*'], ['*', '.', '*'], ['*', '*', '*']]
         """
 
-        self.rows = [list(r) for r in definition.strip().split('\n')]
+        self.rows = [list(r) for r in definition.strip().split("\n")]
 
     def get(self, pos):
         return self.rows[pos[1]][pos[0]]
@@ -102,7 +119,7 @@ class Board:
         >>> h = Board("***\\n*.*\\n*.*\\n***")
         >>> h.contains('.')
         True
-     
+
         >>> h = Board("***\\n* *\\n* *\\n***")
         >>> h.contains('.')
         False
@@ -115,10 +132,9 @@ class Board:
 
         return False
 
-
-
     def __repr__(self):
         return str(self.rows)
+
 
 @dataclass
 class Direction:
@@ -135,8 +151,9 @@ class Direction:
     >>> d.move((0,0))
     (0, -1)
     """
+
     name: str
-    
+
     def turn_cw(self, angle):
         """
         >>> d = Direction('n')
@@ -144,10 +161,10 @@ class Direction:
         >>> d
         Direction(name='w')
         """
-        directions = 'nesw'
+        directions = "nesw"
 
         direction = directions.index(self.name)
-        direction = (direction + int(angle/90)) % 4
+        direction = (direction + int(angle / 90)) % 4
 
         self.name = directions[direction]
 
@@ -156,7 +173,7 @@ class Direction:
         >>> d = Direction('w')
         >>> d.move((3,3), 4)
         (-1, 3)
-        
+
         >>> d = Direction('s')
         >>> d.move((5,5), -2)
         (5, 3)
@@ -167,10 +184,10 @@ class Direction:
         """
 
         directions = {
-            'n': ( 0,-1),
-            'e': ( 1, 0),
-            's': ( 0, 1),
-            'w': (-1, 0),
+            "n": (0, -1),
+            "e": (1, 0),
+            "s": (0, 1),
+            "w": (-1, 0),
         }
 
         return (
@@ -182,84 +199,63 @@ class Direction:
         return self.name
 
 
-def flip_coin():
-    return 'heads' if random.random() > .5 else 'tails'
-
-
-def agent(facing, obstructed, last_action, actions):
-    """Handle one agent turn
-
-    :param facing: Current direction reported by compass. Will always be one
-    of 'n', 's', 'e', or 'w'
-    :param obstructed: Will be true if current forward path is obstructed
-    :param last_action: Value of action selected on previous turn
-    :param actions: List of valid actions
-
-    Returns exactly one action from list of valid actions
-    """
-
-    if not obstructed and flip_coin() == 'heads':
-        return 'forward'
-
-    if flip_coin() == 'heads':
-        return actions[0]
-    else:
-        return actions[1]
-
-def clean_house(house, agent, delay=.5, limit=100000, allow_useless=True):
+def clean_house(house, agent, delay=0.5, limit=100000, allow_useless=True):
     house = Board(house)
 
     action = None
     pos = (1, 1)
-    facing = Direction('s')
+    facing = Direction("s")
 
     house.set(pos, facing.name)
-    
+
     for i in range(limit):
         if delay > 0:
-            print(f'Turn {i}')
-            print(f'Completed action: {action}')
+            print(f"Turn {i}")
+            print(f"Completed action: {action}")
             for row in house.rows:
-                print(''.join(row))
+                print("".join(row))
 
             time.sleep(delay)
 
-        if not house.contains('.'):
+        if not house.contains("."):
             return i
 
-        actions = ['left', 'right']
+        actions = ["left", "right"]
 
-        if house.get(facing.move(pos)) != '*':
-            actions.insert(0, 'forward')
+        if house.get(facing.move(pos)) != "*":
+            actions.insert(0, "forward")
 
-        action = agent(facing.name, 'forward' not in actions, action, actions)
+        action = agent(facing.name, "forward" not in actions, action, actions)
 
         if not allow_useless:
-            assert(action in actions)
+            assert action in actions
         else:
             if not action in actions:
                 continue
 
-        house.set(pos, ' ')
+        house.set(pos, " ")
 
-        if action == 'right':
+        if action == "right":
             facing.turn_cw(90)
-        elif action == 'left':
+        elif action == "left":
             facing.turn_cw(-90)
-        elif action == 'forward':
+        elif action == "forward":
             pos = facing.move(pos)
 
         house.set(pos, facing.name)
 
-    return float('inf')
+    return float("inf")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     for i, house in enumerate(houses):
         if clean_house(house, agent, delay=0) < 100000:
             results = [clean_house(house, agent, delay=0) for i in range(100)]
             average = sum(results) / len(results)
 
-            print(f"Cleaned house {i} in {average:.1f} seconds on average (max {max(results)}).")
+            print(
+                f"Cleaned house {i} in {average:.1f} seconds on average (max {max(results)})."
+            )
         else:
             print(f"Took too long to clean house {i}")
             clean_house(house, agent, delay=0.5)
