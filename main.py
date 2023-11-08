@@ -3,25 +3,40 @@ import time
 from dataclasses import dataclass
 
 
-def agent(facing, obstructed, last_action, actions):
+def agent(percepts, available_actions, previous_actions):
     """Handle one agent turn
 
-    :param facing: Current direction reported by compass. Will always be one
-    of 'n', 's', 'e', or 'w'
-    :param obstructed: Will be true if current forward path is obstructed
-    :param last_action: Value of action selected on previous turn
+    :param percepts: dictionary of current percepts (sensor data)
+    :param previous_actions: List of all previous actions (most recent last)
     :param actions: List of valid actions
+    
+    Percept descriptions
+    
+    - "obstructed" will be True if the path forward is blocked
+    - "facing" will be the current direction as one of ["n", "s", "e", "w"]
+    - "temp" will be a value between 1 and 100. It will increase by
+    1 on each move and decrease 1 on each rest.
+    
+    Action descriptions
+    
+    "forward" will move forward 1 space
+    "left" will turn to the left
+    "right" will turn to the right
+    "rest" will do nothing. Temperature will decrease by 1
 
     Returns exactly one action from list of valid actions
     """
+    
+    if percepts["temp"] > 110:
+        return "rest"
 
-    if not obstructed and random.random() > 0.5:
+    if not percepts["obstructed"] and random.random() > 0.5:
         return "forward"
-
+    
     if random.random() > 0.5:
-        return actions[0]
+        return available_actions[0]
     else:
-        return actions[1]
+        return available_actions[1]
 
 
 houses = [
@@ -205,12 +220,15 @@ def clean_house(house, agent, delay=0.5, limit=100000, allow_useless=True):
     action = None
     pos = (1, 1)
     facing = Direction("s")
+    temperature = 25
 
     house.set(pos, facing.name)
+    
+    previous_actions = []
 
     for i in range(limit):
         if delay > 0:
-            print(f"Turn {i}")
+            print(f"Turn: {i} Temp: {temperature}")
             print(f"Completed action: {action}")
             for row in house.rows:
                 print("".join(row))
@@ -220,12 +238,19 @@ def clean_house(house, agent, delay=0.5, limit=100000, allow_useless=True):
         if not house.contains("."):
             return i
 
-        actions = ["left", "right"]
+        actions = ["left", "right", "rest"]
 
         if house.get(facing.move(pos)) != "*":
             actions.insert(0, "forward")
+            
+        percepts = {
+            "facing": facing.name,
+            "obstructed": "forward" not in actions,
+            "temp": temperature,
+        }
 
-        action = agent(facing.name, "forward" not in actions, action, actions)
+        action = agent(percepts, actions, previous_actions)
+        previous_actions.append(action)
 
         if not allow_useless:
             assert action in actions
@@ -237,10 +262,19 @@ def clean_house(house, agent, delay=0.5, limit=100000, allow_useless=True):
 
         if action == "right":
             facing.turn_cw(90)
+            temperature += 1
         elif action == "left":
             facing.turn_cw(-90)
+            temperature += 1
         elif action == "forward":
             pos = facing.move(pos)
+            temperature += 1
+        elif action == "rest":
+            temperature = max(temperature - 1, 25)
+            
+        if temperature >= 100:
+            print("The vacuum is on fire (it should rest to keep temp under 100)")
+            return float("inf")
 
         house.set(pos, facing.name)
 
