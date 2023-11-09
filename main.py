@@ -27,16 +27,18 @@ def agent(percepts, available_actions, previous_actions):
     Returns exactly one action from list of valid actions
     """
     
-    if percepts["temp"] > 110:
+    if percepts["temp"] > 75:
         return "rest"
 
-    if not percepts["obstructed"] and random.random() > 0.5:
+    forwards = len([a for a in previous_actions[-5:] if a == "forward"])
+
+    if not percepts["obstructed"] and random.random() > forwards / 6:
         return "forward"
     
     if random.random() > 0.5:
-        return available_actions[0]
+        return "left"
     else:
-        return available_actions[1]
+        return "right"
 
 
 houses = [
