@@ -9,16 +9,16 @@ def agent(percepts, available_actions, previous_actions):
     :param percepts: dictionary of current percepts (sensor data)
     :param previous_actions: List of all previous actions (most recent last)
     :param actions: List of valid actions
-    
+
     Percept descriptions
-    
+
     - "obstructed" will be True if the path forward is blocked
     - "facing" will be the current direction as one of ["n", "s", "e", "w"]
     - "temp" will be a value between 1 and 100. It will increase by
     1 on each move and decrease 1 on each rest.
-    
+
     Action descriptions
-    
+
     "forward" will move forward 1 space
     "left" will turn to the left
     "right" will turn to the right
@@ -26,8 +26,9 @@ def agent(percepts, available_actions, previous_actions):
 
     Returns exactly one action from list of valid actions
     """
-    
+
     pass
+
 
 houses = [
     """
@@ -213,7 +214,7 @@ def clean_house(house, agent, delay=0.5, limit=100000, allow_useless=True):
     temperature = 25
 
     house.set(pos, facing.name)
-    
+
     previous_actions = []
 
     for i in range(limit):
@@ -232,7 +233,7 @@ def clean_house(house, agent, delay=0.5, limit=100000, allow_useless=True):
 
         if house.get(facing.move(pos)) != "*":
             actions.insert(0, "forward")
-            
+
         percepts = {
             "facing": facing.name,
             "obstructed": "forward" not in actions,
@@ -261,7 +262,7 @@ def clean_house(house, agent, delay=0.5, limit=100000, allow_useless=True):
             temperature += 1
         elif action == "rest":
             temperature = max(temperature - 1, 25)
-            
+
         if temperature >= 100:
             print("The vacuum is on fire (it should rest to keep temp under 100)")
             return float("inf")
