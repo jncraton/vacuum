@@ -1,0 +1,6 @@
+digraph G {
+  Agent -> Actuators [label="Actions    "];
+  Actuators -> Environment;
+  Environment -> Sensors;
+  Sensors -> Agent [label="Percepts"];
+}

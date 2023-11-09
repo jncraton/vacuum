@@ -18,3 +18,4 @@ Your task is to implement the vacuuming agent such that it is able to successful
 Percepts and Actions
 --------------------
 
+![Agent environment diagram](media/agent.svg)
