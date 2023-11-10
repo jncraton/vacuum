@@ -12,6 +12,9 @@ Your task is to implement the vacuuming agent such that it is able to successful
 
 Warning 🔥: The vacuum hardware is somewhat limited and is unable to run continuously without overheating. There is a sensor to monitor the current `temp`. Make sure that you `rest` occasionally to prevent the device from catching fire.
 
+
+Handout code [vacuum.py](vacuum.py) is provided and must be used as a starting point for this assignment. Your task is to provide an implementation for the `agent` function.
+
 No code outside of the agent function should be modified in your final submission.
 
 Houses
@@ -34,11 +37,6 @@ Percepts and Actions
 ![Agent environment diagram](https://upload.wikimedia.org/wikipedia/commons/3/3f/IntelligentAgent-SimpleReflex.png)
 
 The vacuum `agent` processes data from sensors as `percepts` and uses this sensor data to select a valid `action`. The environment then updates based on the `action` and new `percepts` are returned from sensors so the agent can make its next decision.
-
-Handout Code
-------------
-
-Handout code [vacuum.py](vacuum.py) is provided and must be used as a starting point for this assignment. Your task is to provide an implementation for the `agent` function.
 
 Resource
 --------
