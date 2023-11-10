@@ -1,7 +1,7 @@
 Vacuum
 ======
 
-![ France in 2000 year (XXI century). Electric scrubbing. France, paper card by Jean-Marc Côté.](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/France_in_XXI_Century._Electric_scrubbing.jpg/640px-France_in_XXI_Century._Electric_scrubbing.jpg)
+![A robotic vacuum cleaner cleaning a carpet (Stable Diffusion)](media/vacuum.jpg)
 
 This lab provides the opportunity to create an automous agent to vacuum houses.
 
