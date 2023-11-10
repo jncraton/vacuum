@@ -1,7 +1,7 @@
 Vacuum
 ======
 
-This lab provides the opportunity to create an automous agent to vacuum virtual houses.
+This lab provides the opportunity to create an autonomous agent to vacuum virtual houses.
 
 ![A robotic vacuum cleaner cleaning a carpet (Stable Diffusion)](media/vacuum.jpg)
 
