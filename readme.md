@@ -26,3 +26,4 @@ Resource
 --------
 
 - [PY4E Chapters 2 through 10](https://www.py4e.com/html3/)
+- [Intelligent Agents on Wikipedia](https://en.wikipedia.org/wiki/Intelligent_agent)
