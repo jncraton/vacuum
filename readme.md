@@ -14,6 +14,20 @@ Warning 🔥: The vacuum hardware is somewhat limited and is unable to run conti
 
 No code outside of the agent function should be modified in your final submission.
 
+Houses
+------
+
+Houses are represented as plain text. The `*` character is used to represent a wall, the `.` is used to represent dirt, and a blank space is used to represent clean floor. Once clean, all dirt (`.`) should be removed from a house. Here's an example showing what house 4 looks like:
+
+```
+*********
+*...*...*
+*...*...*
+**.**...*
+*.......*
+*********
+```
+
 Percepts and Actions
 --------------------
 
