@@ -10,6 +10,8 @@ Task
 
 Your task is to implement the vacuuming agent such that it is able to successfully vacuum at least houses 0 through 4. Additional houses are provided for an extra challenge and to better measure agent performance in complex environments.
 
+No code outside of the agent function should be modified in your final submission.
+
 Percepts and Actions
 --------------------
 
