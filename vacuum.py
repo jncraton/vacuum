@@ -3,12 +3,14 @@ import time
 from dataclasses import dataclass
 
 
-def agent(percepts, available_actions, previous_actions):
+def agent(percepts, available_actions, previous_actions, state):
     """Handle one agent turn
 
     :param percepts: dictionary of current percepts (sensor data)
+    :param available_actions: List of valid actions
     :param previous_actions: List of all previous actions (most recent last)
-    :param actions: List of valid actions
+    :param state: Initially empty dictionary that can be used to store 
+    state between calls to the agent function
 
     Percept descriptions
 
@@ -215,6 +217,7 @@ def clean_house(house, agent, delay=0.5, limit=100000, allow_useless=True):
 
     house.set(pos, facing.name)
 
+    state = {}
     previous_actions = []
 
     for i in range(limit):
@@ -240,7 +243,7 @@ def clean_house(house, agent, delay=0.5, limit=100000, allow_useless=True):
             "temp": temperature,
         }
 
-        action = agent(percepts, actions, previous_actions)
+        action = agent(percepts, actions, previous_actions, state)
         previous_actions.append(action)
 
         if not allow_useless:
