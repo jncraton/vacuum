@@ -10,6 +10,8 @@ Task
 
 Your task is to implement the vacuuming agent such that it is able to successfully vacuum at least houses 0 through 4. Additional houses are provided for an extra challenge and to better measure agent performance in complex environments.
 
+Warning 🔥: The vacuum hardware is somewhat limited and is unable to run continuously without overheating. There is a sensor to monitor the current `temp`. Make sure that you `rest` occasionally to prevent the device from catching fire.
+
 No code outside of the agent function should be modified in your final submission.
 
 Percepts and Actions
