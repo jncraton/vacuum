@@ -13,7 +13,7 @@ Your task is to implement the vacuuming agent such that it is able to successful
 Percepts and Actions
 --------------------
 
-![Agent environment diagram](media/agent.svg)
+![Agent environment diagram](https://upload.wikimedia.org/wikipedia/commons/3/3f/IntelligentAgent-SimpleReflex.png)
 
 The vacuum `agent` process data from sensors (`percepts`) and uses this sensor data to select a valid `action`. The environment then updates based on the `action` and new `percepts` are returned from sensors so the agent can make its next decision.
 
