@@ -5,6 +5,14 @@ This lab provides the opportunity to create an autonomous agent to vacuum virtua
 
 ![A robotic vacuum cleaner cleaning a carpet (Stable Diffusion)](media/vacuum.jpg)
 
+Learning Objectives
+-------------------
+
+After completing this lab, students will be able to:
+
+1. Use dictionaries for accessing structured data
+2. Implement turn-based agents
+
 Task
 ----
 
@@ -41,5 +49,5 @@ The vacuum `agent` processes data from sensors as `percepts` and uses this senso
 Resource
 --------
 
-- [PY4E Chapters 2 through 10](https://www.py4e.com/html3/)
+- [PY4E Chapters 2 through 9](https://www.py4e.com/html3/)
 - [Intelligent Agents on Wikipedia](https://en.wikipedia.org/wiki/Intelligent_agent)
