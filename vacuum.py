@@ -246,6 +246,12 @@ def clean_house(house, agent, delay=0.5, limit=100000, allow_useless=True):
         action = agent(percepts, actions, previous_actions, state)
         previous_actions.append(action)
 
+        all_actions = ["left", "right", "forward", "rest"]
+        if action not in all_actions:
+            print(f"Selected action '{action}' is not a valid action")
+            print(f"Valid actions are: {all_actions}")
+            exit(1)
+
         if not allow_useless:
             assert action in actions
         else:
