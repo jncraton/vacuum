@@ -9,7 +9,7 @@ def agent(percepts, available_actions, previous_actions, state):
     :param percepts: dictionary of current percepts (sensor data)
     :param available_actions: List of valid actions
     :param previous_actions: List of all previous actions (most recent last)
-    :param state: Initially empty dictionary that can be used to store 
+    :param state: Initially empty dictionary that can be used to store
     state between calls to the agent function
 
     Percept descriptions
