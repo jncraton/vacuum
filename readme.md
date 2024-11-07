@@ -51,8 +51,9 @@ Turns
 
 The `agent` function is called once per turn with the current percepts, state, and history of actions. It returns the `action` to be taken on the next turn.
 
-Resource
---------
+Resources
+---------
 
 - [PY4E Chapters 2 through 9](https://www.py4e.com/html3/)
 - [Intelligent Agents on Wikipedia](https://en.wikipedia.org/wiki/Intelligent_agent)
+- It is not expected that your solution to this lab will be optimal, but there is scholarly work on [online coverage algorithms](https://scholar.google.com/scholar?hl=en&q=online+coverage+algorithm) if you have interest in thinking deeply about this subject.
