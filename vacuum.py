@@ -300,7 +300,7 @@ if __name__ == "__main__":
 
         if average < 100000:
             print(
-                f"Cleaned house {i} in {average:.1f} seconds on average (max {max(results)})."
+                f"Cleaned house {i} in {average:.1f} turns on average (max {max(results)})."
             )
         else:
             clean_house(house, agent, delay=0.5)
