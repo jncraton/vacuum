@@ -46,6 +46,11 @@ Percepts and Actions
 
 The vacuum `agent` processes data from sensors as `percepts` and uses this sensor data to select a valid `action`. The environment then updates based on the `action` and new `percepts` are returned from sensors so the agent can make its next decision.
 
+Turns
+-----
+
+The `agent` function is called once per turn with the current percepts, state, and history of actions. It returns the `action` to be taken on the next turn.
+
 Resource
 --------
 
