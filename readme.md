@@ -3,7 +3,7 @@ Vacuum
 
 This lab provides the opportunity to create an autonomous agent to vacuum virtual houses.
 
-![A robotic vacuum](https://upload.wikimedia.org/wikipedia/commons/f/f5/Roomba_original.jpg)
+![A robotic vacuum](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Roomba_original.jpg/330px-Roomba_original.jpg)
 
 Learning Objectives
 -------------------
