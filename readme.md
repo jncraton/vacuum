@@ -3,7 +3,7 @@ Vacuum
 
 This lab provides the opportunity to create an autonomous agent to vacuum virtual houses.
 
-![A robotic vacuum cleaner cleaning a carpet (Stable Diffusion)](media/vacuum.jpg)
+![A robotic vacuum](https://upload.wikimedia.org/wikipedia/commons/f/f5/Roomba_original.jpg)
 
 Learning Objectives
 -------------------
